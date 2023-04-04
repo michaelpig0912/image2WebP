@@ -14,12 +14,12 @@ pip install pillow pillow-heif
 
 1. 想要將 HEIC、JPG、JPEG 轉換為 WebP ，並且解析度不更改，檔名也維持一樣。
 2. 將想要轉換的 HEIC、JPG、JPEG 檔案放在與程式相同位置的 `/image` 資料夾下，並且輸出的檔案在同一資料夾內。
-3. 移除其中的exif資訊。
+3. 移除其中的EXIF資訊。
 
 接下來是程式碼的說明，
 1. 程式的主要流程是使用`os.walk`函數遍歷圖片資料夾中的所有檔案，判斷檔案類型是否為heic、jpg、jpeg或png，如果是就呼叫convert_to_webp函數進行轉換。
 2. `convert_to_webp`函數中，我們首先使用Pillow套件的`Image.open`函數讀取圖片檔案，然後將其轉換為RGB模式，因為webp不支援其他模式的圖片。
-3. 接著，我們使用`Image.getexif`函數獲取圖片的exif資訊，如果有exif資訊，則轉換為bytes類型，否則為空bytes。
+3. 接著，我們使用`Image.getexif`函數獲取圖片的exif資訊，如果有EXIF資訊，則轉換為bytes類型，否則為空bytes。
 4. 最後，我們使用`Image.save`函數將轉換後的圖片儲存為webp格式，設置品質為80，並移除exif資訊。
 5. 如果轉換成功，就輸出成功訊息，否則輸出錯誤訊息。
 6. 最後加上判斷程式是否作為主程式執行的判斷，如果是，就呼叫`main`函數，這樣在執行這個程式的時候，就可以自動遍歷指定的資料夾，並轉換所有符合條件的圖片檔案了。
